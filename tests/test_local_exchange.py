@@ -20,7 +20,7 @@ from test_numerical import _assert_numerical
 def test_scatter(n_expert, topk, batch_size, d_model, world_size):
     gate_idx = torch.randint(n_expert + 1, (batch_size, topk)) - 1
     gate_idx = gate_idx.long().cuda()
-    pos, lec, gec = count_by_gate(gate_idx, n_expert, world_size)
+    pos, lec, _, gec, _ = count_by_gate(gate_idx, n_expert, world_size)
     fbs = int(gec.sum().item())
     inp = torch.rand(batch_size, d_model).cuda()
     inp.requires_grad = True
